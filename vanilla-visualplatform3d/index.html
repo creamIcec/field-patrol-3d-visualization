@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>3D实时监控平台</title>
+  <script type="text/javascript"
+    src="https://api.map.baidu.com/api?v=1.0&&type=webgl&ak="></script>
+  <script type="text/javascript"
+    src="https://api.map.baidu.com/library/TrackAnimation/src/TrackAnimation_min.js"></script>
+  <script type="text/javascript" src="./lib/svg-inject.js"></script>
+  <script type="text/javascript" src="./utils/point.js"></script>
+  <script type="text/javascript" src="./utils/interpolate.js"></script>
+  <script type="text/javascript" src="./app/map.js"></script>
+  <script type="text/javascript" src="./experiences/user_experience.js"></script>
+  <script type="text/javascript" src="./experiences/ui.js"></script>
+  <script type="text/javascript" src="./experiences/ux.js"></script>
+  <script type="text/javascript" src="./app/image_display.js"></script>
+
+  <link rel='stylesheet' href='./css/styles.css'>
+  <link rel='stylesheet' href="./css/map_style.css">
+  <link rel='stylesheet' href="./experiences/animation.css">
+  <link rel='icon' href=''>
+  <style>
+    .info-helper-icon {
+      fill: #4477CE;
+    }
+
+    #back-button {
+      background-image: url('./resources/back.svg');
+    }
+
+    #path-display-button {
+      background-image: url('./resources/path.svg');
+    }
+
+    #menu-button {
+      background-image: url('./resources/menu.svg');
+    }
+  </style>
+  <script>
+    function getLocalUnixSecond() {
+      return Math.floor(Date.now() / 1000);
+    }
+  </script>
+</head>
+
+<body>
+  <div id="header">
+    <div>
+      <h2 id="title">无人机3D实时监控平台</h2>
+      <div id="user-icon-wrapper">
+        <img id="user-icon" src="./resources/user.svg" alt="User">
+      </div>
+    </div>
+  </div>
+  <div id="content">
+    <div id="map-content"></div> <!--地图内容--->
+    <div id="widget-content"> <!--非地图内容-->
+      <div id="left-area">
+        <div id="navigator" class="left-buttons button-wrapper">
+          <button id="back-button" class="control-buttons half-height button-background"></button>
+        </div> <!--返回按钮-->
+        <div id="display-control" class="left-buttons button-wrapper">
+          <button id="path-display-button" class="control-buttons half-height button-background"></button>
+        </div> <!--显示元素的控制按钮-->
+        <div id="menu-control" class="left-buttons button-wrapper"> <!--展开菜单控制-->
+          <button id="menu-button" class="control-buttons half-height button-background"></button>
+        </div>
+        <div id="timeline-control" class="left-buttons button-wrapper">
+          <button id="timeline-button" class="control-buttons half-height button-background"></button>
+        </div> <!--时间线控制-->
+      </div>
+      <div id="video-display">
+        <img id="img-holder" src="" width="300" height="300" alt="detected image">
+        <!--<div id="placeholder"></div>-->
+        <!--<video id="placeholder" src="./resources/mixkit-daytime-city-traffic-aerial-view-56-medium.mp4" autoplay="autoplay" loop="loop"></video>-->
+      </div> <!--即时视频区域--->
+      <div id="data">
+        <div id="state-data">
+          <div class="info-wrapper">
+            <div class="icon-wrapper">
+              <img id="signal-strength-icon" src="./resources/signal.svg" class="state-icon" alt="signal">
+            </div>
+            <div class="state-info">
+              <span id="signal-strength" class="state-info-text">信号强</span>
+            </div>
+          </div>
+          <div class="info-wrapper">
+            <div class="icon-wrapper">
+              <img id="battery-level-icon" src="./resources/battery.svg" class="state-icon" alt="battery">
+            </div>
+            <div class="state-info">
+              <span id="battery-level" class="state-info-text">100%</span>
+            </div>
+          </div>
+        </div>
+        <div id="info-data">
+          <div style="grid-column: 1; grid-row: 1;">
+            <span style="font-size: 20px; color: #4477CE; font-weight: 600; display: block;">名称</span>
+            <span style="font-size: 16px; color: black;">测试无人机</span>
+          </div>
+          <div style="grid-column: 2; grid-row: 1;">
+            <div class="info-title-wrapper">
+              <span style="font-size: 20px; color: #4477CE; font-weight: 600; display: block;">实时速度</span>
+              <img src="./resources/speed-meter.svg" id="speed-meter-icon" class="info-helper-icon" alt="speed">
+            </div>
+            <span style="font-size: 16px; color: black; display: inline-block;" id="speed">暂无数据</span>
+          </div>
+          <div style="grid-column: 1; grid-row: 2;">
+            <div class="info-title-wrapper">
+              <span style="font-size: 20px; color: #4477CE; font-weight: 600; display: block;">实时位置</span>
+              <img src="./resources/position.svg" id="position-icon" class="info-helper-icon" alt="position">
+            </div>
+            <span style="font-size: 16px; color: black; display: inline-block;" id="position">暂无数据</span>
+          </div>
+        </div>
+      </div> <!--状态数据--->
+      <div id="menu-pop-up" class="menu"> <!--展开菜单-->
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <noscript>该应用程序需要使用Javascript,请允许Javascript运行。</noscript>
+</body>
+<script type="text/javascript" src="./app/point_processor.js"></script>
+
+</html>
