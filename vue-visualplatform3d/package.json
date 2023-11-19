@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "predev": "node append_ak.js",
     "dev": "vite",
+    "postdev": "node remove_ak.js",
     "build": "vite build",
     "preview": "vite preview"
   },

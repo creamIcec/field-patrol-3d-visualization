@@ -28,7 +28,7 @@ export default{
     <div id="data">
         <div id="state-data">
             <StateColumn icon="./src/components/state-card-assets/signal.svg" :values='signalValues' />
-            <StateColumn icon="./src/components/state-card-assets/battery.svg" :values='batteryLevels' />
+            <StateColumn icon="@/components/state-card-assets/battery.svg" :values='batteryLevels' />
         </div>
         <div id="info-data">
             <div style="grid-column: 1; grid-row: 1;">
@@ -36,10 +36,10 @@ export default{
                 <span style="font-size: 16px; color: black;">{{ drone_name }}</span>
             </div>
             <div style="grid-column: 2; grid-row: 1;">
-                <TrackingColumn icon="./src/components/state-card-assets/speed-meter.svg" title="实时速度" />
+                <TrackingColumn icon="@/components/state-card-assets/speed-meter.svg" title="实时速度" />
             </div>
             <div style="grid-column: 1; grid-row: 2;">
-                <TrackingColumn icon="./src/components/state-card-assets/position.svg" title="实时位置" />
+                <TrackingColumn icon="@/components/state-card-assets/position.svg" title="实时位置" />
             </div>
         </div>
     </div> <!--状态数据--->

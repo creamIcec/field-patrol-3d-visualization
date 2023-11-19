@@ -27,3 +27,6 @@ vue-visualplatform3d/memo.txt
 *.njsproj
 *.sln
 *.sw?
+
+#credentials
+ak.txt

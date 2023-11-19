@@ -1,0 +1,2 @@
+let ak = '';
+export{ ak };
