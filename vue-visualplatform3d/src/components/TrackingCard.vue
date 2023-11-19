@@ -28,35 +28,41 @@ export default{
     <div id="data">
         <div id="state-data">
             <StateColumn icon="./src/components/state-card-assets/signal.svg" :values='signalValues' />
-            <StateColumn icon="@/components/state-card-assets/battery.svg" :values='batteryLevels' />
+            <StateColumn icon="./src/components/state-card-assets/battery.svg" :values='batteryLevels' />
         </div>
         <div id="info-data">
             <div style="grid-column: 1; grid-row: 1;">
                 <span style="font-size: 20px; color: #4477CE; font-weight: 600; display: block;">名称</span>
-                <span style="font-size: 16px; color: black;">{{ drone_name }}</span>
+                <span style="font-size: 16px; color: var(--night-font-color);">{{ drone_name }}</span>
             </div>
             <div style="grid-column: 2; grid-row: 1;">
-                <TrackingColumn icon="@/components/state-card-assets/speed-meter.svg" title="实时速度" />
+                <TrackingColumn icon="./src/components/state-card-assets/speed-meter.svg" title="实时速度" />
             </div>
             <div style="grid-column: 1; grid-row: 2;">
-                <TrackingColumn icon="@/components/state-card-assets/position.svg" title="实时位置" />
+                <TrackingColumn icon="./src/components/state-card-assets/position.svg" title="实时位置" />
             </div>
         </div>
     </div> <!--状态数据--->
 </template>
-<style>
+<style scoped>
 #data{
     width: 450px;
     height: 250px;
     position: absolute;
     bottom: 40px;
     right: 20px;
-    background-color: #031b5150;
     border-radius: 14px;
     display: flex;
     flex-direction: column;
     padding: 10px;
     row-gap: 10px;
+    background: linear-gradient(135deg, var(--header-color-start), var(--header-color-end)),
+                linear-gradient(270deg, var(--header-color-end) 20%, var(--header-color-start) 80%);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    box-shadow: 0px 8px 32px 0px rgba(0,0,0,0.37);
 }
 #state-data{
     display: grid;

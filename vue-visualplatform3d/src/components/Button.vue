@@ -3,12 +3,18 @@ defineProps({
     action: {
         type: String,
         required: true
+    },
+    icon: {
+        type: String,
+        required: false
     }
 });
 </script>
 <template>
     <div class="left-buttons button-wrapper">
-        <button class="control-buttons half-height button-background">{{ action }}</button>
+        <button class="control-buttons half-height button-background">
+            <img :src="icon" :alt="action"/>
+        </button>
     </div>
 </template>
 <style>
@@ -30,8 +36,8 @@ defineProps({
         height: 50%;
     }
     .left-buttons{
-        width: 80px;
-        height: 160px;
+        width: 70px;
+        height: 140px;
         pointer-events: all;
         left: 20px;
     }
@@ -42,10 +48,12 @@ defineProps({
     }
     .control-buttons{
         border-style: none;
-        border-radius: 100%;
+        border-radius: 10px;
         /*border-color: #031b51;*/
-        background-color: #4477CE;
-        box-shadow: 1px 1px 8px 1px #5f92ea;
+        /*background-color: #4477CE;*/
+        background: none;
+        box-shadow: 0px 8px 24px 0px #000000bb;
+
         outline: none;
         cursor: pointer;
         z-index: 99;

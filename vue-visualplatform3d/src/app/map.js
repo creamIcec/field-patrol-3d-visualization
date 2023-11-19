@@ -37,6 +37,9 @@ class WebMap{
     display = function(){
         if(this.map != null){
             this.map.centerAndZoom(this.point, this.zoom);
+            this.map.setMapStyleV2({
+                styleId: "00f8ac3acdfffc195496c7c8a8836caf"
+            });
             this.map.setTilt(this.tilt);
             return 0;
         }else{
