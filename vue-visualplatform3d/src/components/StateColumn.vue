@@ -64,12 +64,14 @@ export default{
 .state-info{
     display: flex;
     align-items: center;
+    
 }
 .state-icon{
     width: 100%;
     height: 100%;
 }
-span .state-info-text{
+.state-info-text{
     display: inline;
+    color: var(--night-font-color);
 }
 </style>
