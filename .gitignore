@@ -14,6 +14,8 @@ vue-visualplatform3d/dist-ssr
 vue-visualplatform3d/coverage
 vue-visualplatform3d/*.local
 vue-visualplatform3d/memo.txt
+vue-visualplatform3d/README.md
+test
 
 /cypress/videos/
 /cypress/screenshots/
