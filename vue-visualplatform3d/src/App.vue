@@ -1,4 +1,5 @@
 <script>
+import { ak } from "./AkContainer";
 import Button from './components/Button.vue';
 import Header from './components/Header.vue';
 import VideoCard from './components/VideoCard.vue';
@@ -15,7 +16,6 @@ function loadExternalScript(src){
         scriptEl.onerror = reject;
     });
 }
-const ak = "";
 export default{
   components: {
     Button,
@@ -30,7 +30,7 @@ export default{
   },
   mounted(){
 
-  }
+  },
 }
 </script>
 
@@ -52,7 +52,7 @@ export default{
   </div>
   <noscript>该应用程序需要使用Javascript,请允许Javascript运行。</noscript>
 </template>
-<link rel="stylesheet" href="./resources/main.css"/>
+<link rel="stylesheet" href="@/resources/main.css"/>
 <style scoped>
 #content{
     width: 100%;
