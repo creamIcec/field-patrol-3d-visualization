@@ -47,7 +47,7 @@ export default{
         <Button id="display-control" pos="left" action="control path" icon="src/resources/path.svg"></Button>  <!--显示元素的控制按钮-->
         <Button id="menu-control" pos="left" action="menu" icon="src/resources/menu.svg"></Button>  <!--展开菜单控制-->
         <Button id="timeline-control" pos="left" action="timeline" icon="src/resources/timeline.svg" style="grid-row: 5;"></Button>  <!--时间线控制-->
-        <Switcher ref="switcher" id="switcher" type="vertical" icon1="src/resources/drone.svg" icon2="src/resources/car.svg" alt1="无人机" alt2="小车"></Switcher>
+        <Switcher @click="" ref="switcher" id="switcher" type="vertical" icon1="src/resources/drone.svg" icon2="src/resources/car.svg" alt1="无人机" alt2="小车"></Switcher>
       </div>
       <VideoCard/> <!--即时视频区域--->
       <TrackingCard/> <!--TODO: vue的自定义元素内容方法-->
@@ -99,17 +99,18 @@ export default{
     backdrop-filter: blur(50px);
     -webkit-backdrop-filter: blur(50px);
     box-shadow: 0px 8px 32px 0px rgba(0,0,0,0.37);
+    pointer-events: all;
 }
 </style>
 <style>
 :root{
     --header-color-start: #04353f90;
     --header-color-end: #08155290;
-    --controller-color-start: #36c9e660;
-    --controller-color-end: #20ca8c60;
+    --controller-color-start: #13849b60;
+    --controller-color-end: #10916160;
     --button-color: #3ccdeaaa;
-    --button-shadow-start: #106b7ebb;
-    --button-shadow-end: #20ca8cbb;
+    --button-shadow-start: #19a572ee;
+    --button-shadow-end: #0a5060ee;
     --night-font-color: #ffffff;
 }
 body{

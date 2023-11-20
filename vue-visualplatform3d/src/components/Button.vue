@@ -30,12 +30,12 @@ export default {
 </script>
 <template>
     <div ref="wrapper" :class="'buttonWrapper allButtons ' + pos + '-buttons'">
-        <button class="control-buttons button-background">
+        <button class="control-buttons">
             <img :src="icon" :alt="action" />
         </button>
     </div>
 </template>
-<style>
+<style scoped>
 @media(max-width:580px) {
     .all-buttons{
         width: 50px;
@@ -45,11 +45,6 @@ export default {
     .control-buttons {
         border: none;
         background-color: transparent;
-    }
-
-    .button-background {
-        background-position: center;
-        background-repeat: no-repeat;
     }
 }
 
@@ -88,11 +83,11 @@ export default {
     border-radius: 10px;
     /*border-color: #031b51;*/
     /*background-color: #4477CE;*/
-    background: none;
+    background-color: var(--button-color);
     box-shadow: 0px 8px 24px 0px #000000bb;
     outline: none;
     cursor: pointer;
-    z-index: 99;
+    z-index: 100;
     width: 70px;
     height: 70px;
 }

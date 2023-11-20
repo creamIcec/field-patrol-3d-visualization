@@ -48,7 +48,7 @@ export default{
 }
 </script>
 <template>
-    <div ref="wrapper" class="switcher-wrapper glass-pad">
+    <div ref="wrapper" class="switcher-wrapper">
         <button ref="part0" class="">
             <img :src="icon1" :alt="alt1" />
         </button>
@@ -64,6 +64,7 @@ export default{
         align-items: center;
         justify-items: center;
         border-radius: 20px;
+        background-color: #109161bb;
     }
     .switcher-h{
         grid-template-columns: 50% 50%;
@@ -76,15 +77,24 @@ export default{
     button{
         border: none;
         border-radius: 20px;
-        box-shadow: inset 10px 10px 10px -1px var(--button-shadow-start),
-                    inset -10px -10px 10px -1px var(--button-shadow-end);
         background-color: var(--button-color);
+        width: 80%;
+        height: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+        cursor: pointer;
+        box-shadow: -5px -5px 5px -1px var(--button-shadow-start),
+                    5px 5px 5px -1px var(--button-shadow-end);
+    }
+    img{
         width: 80%;
         height: 80%;
     }
     button.switcher-activated{
-        box-shadow: 10px 10px 10px -1px var(--button-shadow-start),
-                    -10px -10px 10px -1px var(--button-shadow-end);
+        box-shadow: inset -5px -5px 5px -1px var(--button-shadow-end),
+                    inset 5px 5px 5px -1px var(--button-shadow-start);
     }
     .switcher-up-part{
         grid-row: 1;
