@@ -15,7 +15,7 @@ vue-visualplatform3d/coverage
 vue-visualplatform3d/*.local
 vue-visualplatform3d/memo.txt
 vue-visualplatform3d/README.md
-test
+test-resources
 
 /cypress/videos/
 /cypress/screenshots/
