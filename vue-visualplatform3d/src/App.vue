@@ -1,6 +1,7 @@
 <script>
 import { ak } from "./AkContainer";
 import Button from './components/Button.vue';
+import Switcher from "./components/Switcher.vue";
 import Header from './components/Header.vue';
 import VideoCard from './components/VideoCard.vue';
 import TrackingCard from './components/TrackingCard.vue';
@@ -22,14 +23,16 @@ export default{
     Header,
     VideoCard,
     TrackingCard,
-    Popup
+    Popup,
+    Switcher
   },
   beforeMount(){
     loadExternalScript('https://api.map.baidu.com/api?v=1.0&&type=webgl&ak=' + ak);
     loadExternalScript('https://api.map.baidu.com/library/TrackAnimation/src/TrackAnimation_min.js');
   },
   mounted(){
-
+    const switcher = this.$refs.switcher;
+    switcher.toggle(0);
   },
 }
 </script>
@@ -40,10 +43,11 @@ export default{
     <div id="map-content"></div> <!--地图内容--->
     <div id="widget-content"> <!--非地图内容-->
       <div id="left-area">
-        <Button id="navigator" action="back" icon="src/resources/back.svg"></Button>  <!--返回按钮-->
-        <Button id="display-control" action="control path" icon="src/resources/path.svg"></Button>  <!--显示元素的控制按钮-->
-        <Button id="menu-control" action="menu" icon="src/resources/menu.svg"></Button>  <!--展开菜单控制-->
-        <Button id="timeline-control" action="timeline" icon="src/resources/timeline.svg" style="grid-row: 7;"></Button>  <!--时间线控制-->
+        <Button id="navigator" pos="left" action="back" icon="src/resources/back.svg"></Button>  <!--返回按钮-->
+        <Button id="display-control" pos="left" action="control path" icon="src/resources/path.svg"></Button>  <!--显示元素的控制按钮-->
+        <Button id="menu-control" pos="left" action="menu" icon="src/resources/menu.svg"></Button>  <!--展开菜单控制-->
+        <Button id="timeline-control" pos="left" action="timeline" icon="src/resources/timeline.svg" style="grid-row: 5;"></Button>  <!--时间线控制-->
+        <Switcher ref="switcher" id="switcher" type="vertical" icon1="src/resources/drone.svg" icon2="src/resources/car.svg" alt1="无人机" alt2="小车"></Switcher>
       </div>
       <VideoCard/> <!--即时视频区域--->
       <TrackingCard/> <!--TODO: vue的自定义元素内容方法-->
@@ -54,6 +58,12 @@ export default{
 </template>
 <link rel="stylesheet" href="@/resources/main.css"/>
 <style scoped>
+#switcher{
+    width: 100px;
+    height: 200px;
+    position: absolute;
+    bottom: -250px;
+}
 #content{
     width: 100%;
     height: 100%;
@@ -74,7 +84,7 @@ export default{
 }
 #left-area{
     width: 90px;
-    height: 80%;
+    height: 60%;
     margin-top: 1%;
     margin-left: 1%;
     display: grid;
@@ -82,7 +92,6 @@ export default{
     grid-template-rows: repeat(8, 100px) calc(100% - 700px);
     justify-items: center;
     align-items: center;
-
     background: linear-gradient(135deg, var(--controller-color-start), var(--controller-color-end)),
                 linear-gradient(270deg, var(--controller-color-end) 20%, var(--controller-color-start) 80%);
     border-radius: 20px;
@@ -96,8 +105,27 @@ export default{
 :root{
     --header-color-start: #04353f90;
     --header-color-end: #08155290;
-    --controller-color-start: #2ab8d460;
-    --controller-color-end: #21ad7a60;
+    --controller-color-start: #36c9e660;
+    --controller-color-end: #20ca8c60;
+    --button-color: #3ccdeaaa;
+    --button-shadow-start: #106b7ebb;
+    --button-shadow-end: #20ca8cbb;
     --night-font-color: #ffffff;
+}
+body{
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.glass-pad{
+    background: linear-gradient(135deg, var(--controller-color-start), var(--controller-color-end)),
+                linear-gradient(270deg, var(--controller-color-end) 20%, var(--controller-color-start) 80%);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.3);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    box-shadow: 0px 8px 32px 0px rgba(0,0,0,0.37);
+    margin-top: 0.5%;
+    margin-left: 1%;
 }
 </style>
