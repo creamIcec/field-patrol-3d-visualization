@@ -1,11 +1,12 @@
 <script>
 import { ak } from "./AkContainer";
 import Button from './components/Button.vue';
-import Switcher from "./components/Switcher.vue";
+import ControlPad from "./components/ControlPad.vue";
 import Header from './components/Header.vue';
 import VideoCard from './components/VideoCard.vue';
 import TrackingCard from './components/TrackingCard.vue';
 import Popup from './components/Popup.vue';
+import Switcher from "./components/Switcher.vue";
 import "./app/point_processor";
 function loadExternalScript(src){
   return new Promise((resolve, reject) => {
@@ -24,6 +25,7 @@ export default{
     VideoCard,
     TrackingCard,
     Popup,
+    ControlPad,
     Switcher
   },
   beforeMount(){
@@ -31,8 +33,8 @@ export default{
     loadExternalScript('https://api.map.baidu.com/library/TrackAnimation/src/TrackAnimation_min.js');
   },
   mounted(){
-    const switcher = this.$refs.switcher;
-    switcher.toggle(0);
+      const controlPad = this.$refs.controlPad;
+      controlPad.toggle(0);
   },
 }
 </script>
@@ -47,7 +49,7 @@ export default{
         <Button id="display-control" pos="left" action="control path" icon="src/resources/path.svg"></Button>  <!--显示元素的控制按钮-->
         <Button id="menu-control" pos="left" action="menu" icon="src/resources/menu.svg"></Button>  <!--展开菜单控制-->
         <Button id="timeline-control" pos="left" action="timeline" icon="src/resources/timeline.svg" style="grid-row: 5;"></Button>  <!--时间线控制-->
-        <Switcher @click="" ref="switcher" id="switcher" type="vertical" icon1="src/resources/drone.svg" icon2="src/resources/car.svg" alt1="无人机" alt2="小车"></Switcher>
+        <ControlPad ref="controlPad" id="control-pad" type="vertical" icon1="src/resources/drone.svg" icon2="src/resources/car.svg" alt1="无人机" alt2="小车"></ControlPad>
       </div>
       <VideoCard/> <!--即时视频区域--->
       <TrackingCard/> <!--TODO: vue的自定义元素内容方法-->
@@ -58,9 +60,9 @@ export default{
 </template>
 <link rel="stylesheet" href="@/resources/main.css"/>
 <style scoped>
-#switcher{
-    width: 100px;
-    height: 200px;
+#control-pad{
+    width: 90px;
+    height: 180px;
     position: absolute;
     bottom: -250px;
 }

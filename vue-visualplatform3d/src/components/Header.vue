@@ -1,21 +1,39 @@
-<script setup>
+<script>
 import Button from './Button.vue';
-defineProps({
-    title: {
-        type: String,
-        required: false
+import Switcher from './Switcher.vue';
+export default{
+    props:{
+        title: {
+            type: String,
+            required: false
+        }
+    },
+    mounted(){
+        const s = this.$refs.s;
+        s.toggle();
+    },
+    components:{
+        Button,
+        Switcher
     }
-})
+}
 </script>
 <template>
     <div>
         <div id="title-wrapper" class="glass-pad">
             <h1 id="title">{{ title }}</h1>
         </div>
+        <Switcher ref="s" id="mode-switcher"></Switcher>
         <Button id="user" pos="top" action="user" icon="src/resources/user.svg" :standAlone=true></Button>  
     </div>
 </template>
 <style scoped>
+#mode-switcher{
+    top: 20px;
+    right: 120px;
+    z-index: 2;
+    background-color: var(--controller-color-start);
+}
 #title-wrapper{
     width: fit-content;
     height: 100px;

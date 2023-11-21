@@ -1,115 +1,153 @@
 <script>
-export default{
-    props:{
-        type:{
-            type: String,
-            required: true,
-            validator: (value) => {
-                return ['vertical', 'horizontal'].includes(value);
+    export default{
+        methods:{
+            toggle(){
+                const button1 = this.$refs.button1;
+                const button2 = this.$refs.button2;
+                const indicator = this.$refs.indicator;
+                const wrapper = this.$refs.wrapper;
+                button2.onclick = function(){
+                    indicator.classList.remove("indicator-animating2left");
+                    indicator.classList.add("indicator-animating2right");
+                    wrapper.classList.remove("wrapper-animating2day");
+                    wrapper.classList.add("wrapper-animating2night");
+                }
+                button1.onclick = function(){
+                    indicator.classList.remove("indicator-animating2right");
+                    indicator.classList.add("indicator-animating2left");
+                    wrapper.classList.remove("wrapper-animating2night");
+                    wrapper.classList.add("wrapper-animating2day");
+                }
             }
-        },
-        icon1:{
-            type: String,
-            required: false,
-        },
-        icon2:{
-            type: String,
-            required: true
-        },
-        alt1:{
-            type: String,
-            required: false,
-        },
-        alt2:{
-            type: String,
-            required: true
-        }
-    },
-    mounted(){
-        const wrapper = this.$refs.wrapper;
-        const part0 = this.$refs.part0;
-        const part1 = this.$refs.part1;
-        if(this.type == 'vertical'){
-            wrapper.classList.add("switcher-v");
-            part0.classList.add("switcher-up-part");
-            part1.classList.add("switcher-down-part");
-        }else if(this.type == 'horizontal'){
-            wrapper.classList.add("switcher-h");
-            part0.classList.add("switcher-left-part");
-            part1.classList.add("switcher-right-part");
-        }
-    },
-    methods:{
-        toggle(part){
-            const referee = this.$refs['part' + part];
-            referee.classList.toggle("switcher-activated");
         }
     }
-}
 </script>
 <template>
     <div ref="wrapper" class="switcher-wrapper">
-        <button ref="part0" class="">
-            <img :src="icon1" :alt="alt1" />
-        </button>
-        <button ref="part1" class="">
-            <img :src="icon2" :alt="alt2" />
-        </button>
+        <button ref="button1" id="button1"></button>
+        <button ref="button2" id="button2"></button>
+        <div ref="indicator" id="indicator" class="grid-enabled"></div>
     </div>
 </template>
 <style scoped>
-    .switcher-wrapper{
-        box-sizing: border-box;
-        display: grid;
-        align-items: center;
-        justify-items: center;
-        border-radius: 20px;
-        background-color: #109161bb;
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+.switcher-wrapper{
+    width: 160px;
+    height: 70px;
+    border-radius: 20px;
+    box-shadow: inset -10px -10px 10px -1px rgba(255,255,255,0.16),
+                inset 10px 10px 10px -1px rgba(10,99,169,0.16);
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-template-rows: 100%;
+    grid-template-columns: 50% 50%;
+    position: absolute;
+}
+button{
+    padding-block: 0;
+    padding-inline: 0;
+    width: 100%;
+    height: 61.8%;
+    z-index: 2;
+    border: none;
+    cursor: pointer;
+}
+#button1{
+    background: url("./state-card-assets/day_mode.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
+    grid-column: 1;
+}
+#button2{
+    background: url("./state-card-assets/night_mode.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
+    grid-column: 2;
+}
+#indicator{
+    width: calc(50% * 0.9);
+    height: 61.8%;
+    margin: 0 5px;
+    position: absolute;
+    z-index: 1;
+    background: linear-gradient(180deg, rgb(252, 128, 56) 0%, rgb(255,160,56) 60%);
+    border-radius: 20px;
+    box-shadow: inset 10px 10px 10px -1px rgb(255, 165, 70),
+                inset -10px -10px 10px -1px rgb(223, 109, 43);
+}
+@keyframes toggle2right {
+    from{
+        background: linear-gradient(180deg, rgb(252, 128, 56) 0%, rgb(255,160,56) 60%);
+        box-shadow: inset 10px 10px 10px -1px rgb(255, 165, 70),
+                    inset -10px -10px 10px -1px rgb(223, 109, 43);
+        left: 0%;
     }
-    .switcher-h{
-        grid-template-columns: 50% 50%;
-        grid-template-rows: 100%;
+    to{
+        background: linear-gradient(180deg, rgb(56, 125, 252) 0%, rgb(56, 169, 255) 60%);
+        box-shadow: inset -10px -10px 10px -1px rgb(32, 117, 183),
+                    inset 10px 10px 10px -1px rgb(31, 83, 181);
+        left: 50%;
     }
-    .switcher-v{
-        grid-template-rows: 50% 50%;
-        grid-template-columns: 100%;
+}
+@keyframes toggle-night{
+    from{
+        background-color: var(--controller-color-end);
+        box-shadow: inset -10px -10px 10px -1px rgba(255,255,255,0.16),
+                inset 10px 10px 10px -1px rgba(10,99,169,0.16);
     }
-    button{
-        border: none;
-        border-radius: 20px;
-        background-color: var(--button-color);
-        width: 80%;
-        height: 80%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 100;
-        cursor: pointer;
-        box-shadow: -5px -5px 5px -1px var(--button-shadow-start),
-                    5px 5px 5px -1px var(--button-shadow-end);
+    to{
+        background-color: var(--controller-color-start);
+        box-shadow: inset 10px 10px 10px -1px rgba(1, 23, 40, 0.25),
+                    inset -10px -10px 10px -1px rgba(199, 199, 199, 0.25);       
     }
-    img{
-        width: 80%;
-        height: 80%;
+}
+@keyframes toggle-day{
+    from{
+        background-color: var(--controller-color-start);
+        box-shadow: inset 10px 10px 10px -1px rgba(1, 23, 40, 0.25),
+                    inset -10px -10px 10px -1px rgba(199, 199, 199, 0.25);
     }
-    button.switcher-activated{
-        box-shadow: inset -5px -5px 5px -1px var(--button-shadow-end),
-                    inset 5px 5px 5px -1px var(--button-shadow-start);
+    to{
+        background-color: var(--controller-color-end);
+        box-shadow: inset -10px -10px 10px -1px rgba(255,255,255,0.16),
+                inset 10px 10px 10px -1px rgba(10,99,169,0.16);
     }
-    .switcher-up-part{
-        grid-row: 1;
-        grid-column: 1;
+}
+@keyframes toggle2left {
+    from{
+        background: linear-gradient(180deg, rgb(56, 125, 252) 0%, rgb(56, 169, 255) 60%);
+        box-shadow: inset -10px -10px 10px -1px rgb(32, 117, 183),
+                    inset 10px 10px 10px -1px rgb(31, 83, 181);
+        left: 50%;
     }
-    .switcher-down-part{
-        grid-row: 2;
-        grid-column: 1;
+    to{
+        background: linear-gradient(180deg, rgb(252, 128, 56) 0%, rgb(255,160,56) 60%);
+        box-shadow: inset 10px 10px 10px -1px rgb(255, 165, 70),
+                    inset -10px -10px 10px -1px rgb(223, 109, 43);
+        left: 0%;
     }
-    .switcher-left-part{
-        grid-row: 0;
-        grid-column: 0;
-    }
-    .switcher-right-part{
-        grid-row: 0;
-        grid-column: 1;
-    }
+}
+.wrapper-animating2night{
+    animation: 0.5s ease 0s toggle-night;
+    animation-fill-mode: forwards;
+}
+.wrapper-animating2day{
+    animation: 0.5s ease 0s toggle-day;
+    animation-fill-mode: forwards;
+}
+.indicator-animating2left{
+    animation: 0.5s ease 0s toggle2left;
+    animation-fill-mode: forwards;
+}
+.indicator-animating2right{
+    animation: 0.5s ease 0s toggle2right;
+    animation-fill-mode: forwards;
+}
 </style>
