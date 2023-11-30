@@ -64,7 +64,8 @@ export default{
         align-items: center;
         justify-items: center;
         border-radius: 20px;
-        background-color: #109161bb;
+        background: linear-gradient(135deg, var(--day-controller-color-start), var(--day-controller-color-end)),
+                linear-gradient(270deg, var(--day-controller-color-end) 20%, var(--day-controller-color-start) 80%);
     }
     .switcher-h{
         grid-template-columns: 50% 50%;
@@ -77,7 +78,7 @@ export default{
     button{
         border: none;
         border-radius: 20px;
-        background-color: var(--button-color);
+        background-color: var(--day-button-color);
         width: 80%;
         height: 80%;
         display: flex;
@@ -85,16 +86,16 @@ export default{
         align-items: center;
         z-index: 100;
         cursor: pointer;
-        box-shadow: -5px -5px 5px -1px var(--button-shadow-start),
-                    5px 5px 5px -1px var(--button-shadow-end);
+        box-shadow: -5px -5px 5px -1px var(--day-button-shadow-start),
+                    5px 5px 5px -1px var(--day-button-shadow-end);
     }
     img{
         width: 80%;
         height: 80%;
     }
     button.switcher-activated{
-        box-shadow: inset -5px -5px 5px -1px var(--button-shadow-end),
-                    inset 5px 5px 5px -1px var(--button-shadow-start);
+        box-shadow: inset -5px -5px 5px -1px var(--day-button-shadow-end),
+                    inset 5px 5px 5px -1px var(--day-button-shadow-start);
     }
     .switcher-up-part{
         grid-row: 1;

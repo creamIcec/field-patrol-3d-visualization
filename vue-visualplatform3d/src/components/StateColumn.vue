@@ -72,6 +72,6 @@ export default{
 }
 .state-info-text{
     display: inline;
-    color: var(--night-font-color);
+    color: var(--day-night-font-color);
 }
 </style>

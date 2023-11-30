@@ -1,5 +1,4 @@
 <script>
-import { ref } from "vue";
 export default {
     props: {
         action: {
@@ -64,7 +63,7 @@ export default {
     bottom: 20px;
 }
 
-.button-wrapper {
+.buttonWrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -72,9 +71,9 @@ export default {
     height: fit-content;
 }
 
-.all-buttons {
-    width: 70px;
-    height: 70px;
+.allButtons {
+    width: 100%;
+    height: 100%;
     pointer-events: all;
 }
 
@@ -83,12 +82,12 @@ export default {
     border-radius: 10px;
     /*border-color: #031b51;*/
     /*background-color: #4477CE;*/
-    background-color: var(--button-color);
+    background-color: var(--day-button-color);
     box-shadow: 0px 8px 24px 0px #000000bb;
     outline: none;
     cursor: pointer;
     z-index: 100;
-    width: 70px;
-    height: 70px;
+    width: 100%;
+    height: 100%;
 }
 </style>

@@ -15,8 +15,8 @@
     border-radius: 14px;
     overflow: hidden;
 
-    background: linear-gradient(135deg, var(--header-color-start), var(--header-color-end)),
-                linear-gradient(270deg, var(--header-color-end) 20%, var(--header-color-start) 80%);
+    background: linear-gradient(135deg, var(--day-card-color-start), var(--day-card-color-end)),
+                linear-gradient(270deg, var(--day-card-color-end) 20%, var(--day-card-color-start) 80%);
     border-radius: 20px;
     border: 1px solid rgba(255,255,255,0.3);
     backdrop-filter: blur(50px);

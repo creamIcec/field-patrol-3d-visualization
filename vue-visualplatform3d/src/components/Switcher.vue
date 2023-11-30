@@ -1,7 +1,7 @@
 <script>
     export default{
         methods:{
-            toggle(){
+            toggle(webMap){
                 const button1 = this.$refs.button1;
                 const button2 = this.$refs.button2;
                 const indicator = this.$refs.indicator;
@@ -11,12 +11,16 @@
                     indicator.classList.add("indicator-animating2right");
                     wrapper.classList.remove("wrapper-animating2day");
                     wrapper.classList.add("wrapper-animating2night");
+
+                    //webMap.setDisplayMode(1);
                 }
                 button1.onclick = function(){
                     indicator.classList.remove("indicator-animating2right");
                     indicator.classList.add("indicator-animating2left");
                     wrapper.classList.remove("wrapper-animating2night");
                     wrapper.classList.add("wrapper-animating2day");
+                
+                    //webMap.setDisplayMode(0);
                 }
             }
         }
@@ -98,24 +102,24 @@ button{
 }
 @keyframes toggle-night{
     from{
-        background-color: var(--controller-color-end);
+        background-color: var(--day-controller-color-end);
         box-shadow: inset -10px -10px 10px -1px rgba(255,255,255,0.16),
                 inset 10px 10px 10px -1px rgba(10,99,169,0.16);
     }
     to{
-        background-color: var(--controller-color-start);
+        background-color: var(--day-controller-color-start);
         box-shadow: inset 10px 10px 10px -1px rgba(1, 23, 40, 0.25),
                     inset -10px -10px 10px -1px rgba(199, 199, 199, 0.25);       
     }
 }
 @keyframes toggle-day{
     from{
-        background-color: var(--controller-color-start);
+        background-color: var(--day-controller-color-start);
         box-shadow: inset 10px 10px 10px -1px rgba(1, 23, 40, 0.25),
                     inset -10px -10px 10px -1px rgba(199, 199, 199, 0.25);
     }
     to{
-        background-color: var(--controller-color-end);
+        background-color: var(--day-controller-color-end);
         box-shadow: inset -10px -10px 10px -1px rgba(255,255,255,0.16),
                 inset 10px 10px 10px -1px rgba(10,99,169,0.16);
     }

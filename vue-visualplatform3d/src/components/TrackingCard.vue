@@ -33,7 +33,7 @@ export default{
         <div id="info-data">
             <div style="grid-column: 1; grid-row: 1;">
                 <span style="font-size: 20px; color: #4477CE; font-weight: 600; display: block;">名称</span>
-                <span style="font-size: 16px; color: var(--night-font-color);">{{ drone_name }}</span>
+                <span style="font-size: 16px; color: var(--day-night-font-color);">{{ drone_name }}</span>
             </div>
             <div style="grid-column: 2; grid-row: 1;">
                 <TrackingColumn icon="./src/components/state-card-assets/speed-meter.svg" title="实时速度" />
@@ -56,8 +56,8 @@ export default{
     flex-direction: column;
     padding: 10px;
     row-gap: 10px;
-    background: linear-gradient(135deg, var(--header-color-start), var(--header-color-end)),
-                linear-gradient(270deg, var(--header-color-end) 20%, var(--header-color-start) 80%);
+    background: linear-gradient(135deg, var(--day-card-color-start), var(--day-card-color-end)),
+                linear-gradient(270deg, var(--day-card-color-end) 20%, var(--day-card-color-start) 80%);
     border-radius: 20px;
     border: 1px solid rgba(255,255,255,0.3);
     backdrop-filter: blur(50px);
