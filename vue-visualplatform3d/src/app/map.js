@@ -31,22 +31,13 @@ class WebMap{
             this.trackAnimation = null;
             this.entityIcon = null;
             this.entityMarker = null;
-            this.displayMode = 0;
+            this.displayMode = "day";
         }
     }
 
     display = function(){
         if(this.map != null){
             this.map.centerAndZoom(this.point, this.zoom);
-            if(this.displayMode == 0){
-                this.map.setMapStyleV2({
-                    styleId: "3009e2d7cd79bd0b8053223533292206"
-                });
-            }else if(this.displayMode == 1){
-                this.map.setMapStyleV2({
-                    styleId: "00f8ac3acdfffc195496c7c8a8836caf"
-                });
-            }
             this.map.setTilt(this.tilt);
             return 0;
         }else{
@@ -54,12 +45,17 @@ class WebMap{
         }
     }
 
-    switchDayNight = function(currentTilt, currentZoom, currentPosition){
-        this.zoom = currentZoom;
-        this.tilt = currentTilt;
-        this.point = new BMapGL.Point(currentPosition[0], currentPosition[1]);
-        this.displayMode = (this.displayMode == 0 ? 1 : 0);
-        this.display();
+    switchDayNight = function(target){
+        this.displayMode = target;
+        if(this.displayMode == "day"){
+            this.map.setMapStyleV2({
+                styleId: "3009e2d7cd79bd0b8053223533292206"
+            });
+        }else if(this.displayMode == "night"){
+            this.map.setMapStyleV2({
+                styleId: "00f8ac3acdfffc195496c7c8a8836caf"
+            });
+        }
     }
 
     animatePath = function(refresh, forceStopIfPlaying){

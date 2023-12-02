@@ -1,29 +1,18 @@
 <script>
+import "../lib/svg-inject";
 export default{
     props:{
         type:{
-            type: String,
-            required: true,
+            type: String, required: true,
             validator: (value) => {
                 return ['vertical', 'horizontal'].includes(value);
             }
         },
-        icon1:{
-            type: String,
-            required: false,
-        },
-        icon2:{
-            type: String,
-            required: true
-        },
-        alt1:{
-            type: String,
-            required: false,
-        },
-        alt2:{
-            type: String,
-            required: true
-        }
+        icon1:{type: String, required: false},
+        icon2:{type: String, required: true},
+        alt1:{type: String,required: false},
+        alt2:{type: String, required: true},
+        svgInject:{type: Boolean, required: false, default: true},
     },
     mounted(){
         const wrapper = this.$refs.wrapper;
@@ -38,47 +27,74 @@ export default{
             part0.classList.add("switcher-left-part");
             part1.classList.add("switcher-right-part");
         }
+        if(this.svgInject){
+            const iconImage0 = this.$refs.part0Icon;
+            const iconImage1 = this.$refs.part1Icon;
+            SVGInject(iconImage0);
+            SVGInject(iconImage1);
+            iconImage0.classList.add("svg-injected");
+            iconImage1.classList.add("svg-injected");
+        }
     },
     methods:{
         toggle(part){
             const referee = this.$refs['part' + part];
             referee.classList.toggle("switcher-activated");
+            console.log(part);
         }
     }
 }
 </script>
 <template>
-    <div ref="wrapper" class="switcher-wrapper">
-        <button @click="this.toggle(0)" ref="part0" class="">
-            <img :src="icon1" :alt="alt1" />
-        </button>
-        <button @click="this.toggle(1)" ref="part1" class="">
-            <img :src="icon2" :alt="alt2" />
-        </button>
+    <div class="switcher">
+        <div ref="wrapper" class="switcher-container">
+            <button @click="this.toggle(0)" class="" ref="part0">
+                <img :src="icon1" :alt="alt1" class="icon" ref="part0Icon" />
+            </button>
+            <button @click="this.toggle(1)" class="" ref="part1">
+                <img :src="icon2" :alt="alt2" class="icon" ref="part1Icon" />
+            </button>
+        </div>
     </div>
 </template>
 <style scoped>
-    .switcher-wrapper{
-        box-sizing: border-box;
+    .switcher{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        height: fit-content;
+        padding-bottom: 10px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, var(--controller-color-start), var(--controller-color-end)),
+                    linear-gradient(270deg, var(--controller-color-end) 20%, var(--controller-color-start) 80%);
+        box-shadow: -3px -3px 3px -1px var(--shadow-start),
+                3px 3px 3px -1px var(--shadow-end);
+    }
+    .switcher-container{
         display: grid;
         align-items: center;
-        justify-items: center;
-        border-radius: 20px;
-        background: linear-gradient(135deg, var(--day-controller-color-start), var(--day-controller-color-end)),
-                linear-gradient(270deg, var(--day-controller-color-end) 20%, var(--day-controller-color-start) 80%);
+        justify-content: center;
+        padding: 5px;
     }
     .switcher-h{
-        grid-template-columns: 50% 50%;
+        height: var(--left-area-button-size);
+        width: calc(2 * var(--left-area-button-size) + 10px);
+        grid-template-columns: calc(50% - 5px) calc(50% - 5px);
         grid-template-rows: 100%;
+        column-gap: 10px;
     }
     .switcher-v{
+        width: var(--left-area-button-size);
+        height: calc(2 * var(--left-area-button-size) + 10px);
         grid-template-rows: 50% 50%;
         grid-template-columns: 100%;
+        row-gap: 10px;
     }
     button{
         border: none;
-        border-radius: 20px;
-        background-color: var(--day-button-color);
+        border-radius: 10px;
+        background-color: var(--button-color);
         width: 80%;
         height: 80%;
         display: flex;
@@ -86,16 +102,17 @@ export default{
         align-items: center;
         z-index: 100;
         cursor: pointer;
-        box-shadow: -5px -5px 5px -1px var(--day-button-shadow-start),
-                    5px 5px 5px -1px var(--day-button-shadow-end);
+        box-shadow: -5px -5px 5px -1px var(--shadow-start),
+                    5px 5px 5px -1px var(--shadow-end);
+        box-sizing: content-box;
     }
-    img{
+    .icon{
         width: 80%;
         height: 80%;
     }
     button.switcher-activated{
-        box-shadow: inset -5px -5px 5px -1px var(--day-button-shadow-end),
-                    inset 5px 5px 5px -1px var(--day-button-shadow-start);
+        box-shadow: inset -5px -5px 5px -1px var(--shadow-start),
+                    inset 5px 5px 5px -1px var(--shadow-end);
     }
     .switcher-up-part{
         grid-row: 1;

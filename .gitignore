@@ -16,6 +16,7 @@ vue-visualplatform3d/*.local
 vue-visualplatform3d/memo.txt
 vue-visualplatform3d/README.md
 test-resources
+test
 
 /cypress/videos/
 /cypress/screenshots/

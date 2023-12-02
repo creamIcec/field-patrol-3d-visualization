@@ -1,58 +1,30 @@
 <script>
-import { WebMap } from '../app/map';
+import { MapHandler } from '../app/map_handler';
 import Button from './Button.vue';
 import Switcher from './Switcher.vue';
 export default{
     props:{
-        mainContent:{
-            type: String,
-            required: false
-        },
-        subContent:{
-            type: String,
-            required: false
-        },
-        webMap: {
-            type: WebMap,
-            required: true
-        }
+        mainContent:{type: String, required: false},
+        subContent:{type: String, required: false},
+        mapHandler: {type: MapHandler, required: true},
     },
     mounted(){
         const s = this.$refs.s;
-        s.toggle( undefined );//(this.webMap);
+        s.toggle();
     },
     components:{
         Button,
         Switcher
-    },
-    methods:{
-        toggleDayNight(mode){
-            const titleWrapper = this.$refs.titleWrapper;
-            const mainContent = this.$refs.mainContent;
-            if(mode == 0){
-                titleWrapper.classList.remove("title-wrapper-night");
-                titleWrapper.classList.add("title-wrapper-day");
-
-                mainContent.classList.remove("title-night");
-                mainContent.classList.add("title-day");
-            }else if(mode == 1){
-                titleWrapper.classList.remove("title-wrapper-day");
-                titleWrapper.classList.add("title-wrapper-night");
-            
-                mainContent.classList.remove("title-day");
-                mainContent.classList.add("title-night");
-            }
-        },
     }
 }
 </script>
 <template>
     <div>
-        <div ref="titleWrapper" id="title-wrapper" class="glass-pad title-wrapper-day">
-            <h1 ref="mainContent" id="main-content" class="title-day">{{ mainContent }}</h1>
-            <h2 ref="subContent" id="sub-content" class="title-day">{{ subContent }}</h2>
+        <div ref="titleWrapper" id="title-wrapper" class="title-wrapper">
+            <h1 ref="mainContent" id="main-content" class="title">{{ mainContent }}</h1>
+            <h2 ref="subContent" id="sub-content" class="title">{{ subContent }}</h2>
         </div>
-        <Switcher ref="s" id="mode-switcher"></Switcher>
+        <Switcher ref="s" id="mode-switcher" :mapHandler="this.mapHandler"></Switcher>
         <Button id="user" pos="top" action="user" icon="src/resources/user.svg" :standAlone=true></Button>  
     </div>
 </template>
@@ -63,7 +35,7 @@ export default{
     z-index: 2;
     width: 150px;
     height: 60px;
-    background-color: var(--day-controller-color-start);
+    background-color: var(--controller-color-start);
 }
 #title-wrapper{
     width: fit-content;
@@ -75,15 +47,21 @@ export default{
     flex-direction: column;
     justify-content: center;
     z-index: 100;
+
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    box-shadow: 0px 8px 32px 0px rgba(0, 0, 0, 0.37);
+    margin-top: 0.5%;
+    margin-left: 1%;
+
+    background: linear-gradient(135deg, var(--header-color-start), var(--header-color-end)),
+                linear-gradient(270deg, var(--header-color-end) 20%, var(--header-color-start) 80%);
 }
 
-.title-wrapper-day{
-    background: linear-gradient(135deg, var(--day-header-color-start), var(--day-header-color-end)),
-                linear-gradient(270deg, var(--day-header-color-end) 20%, var(--day-header-color-start) 80%);
-}
-
-.title-day{
-    color: var(--day-font-color);
+.title{
+    color: var(--font-color);
 }
 
 #main-content {

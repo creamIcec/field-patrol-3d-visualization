@@ -1,4 +1,5 @@
 <script>
+import "../lib/svg-inject";
 import { computed, ref } from 'vue';
 function clamp(value, min, max){
     if(value < min){
@@ -11,7 +12,8 @@ function clamp(value, min, max){
 export default{
     props:{
         icon: {type: String, required: false},
-        values:{type: Array,required: true}
+        values:{type: Array,required: true},
+        svgInject:{type: Boolean, required: false, default: false}
     },
     setup(props){
         const index = ref(0);   //作为下标
@@ -35,13 +37,20 @@ export default{
             currentState,
             toggleState
         }
+    },
+    mounted(){
+        if(this.svgInject){
+            const icon = this.$refs.icon;
+            SVGInject(icon);
+            icon.classList.add("svg-injected");
+        }
     }
 }
 </script>
 <template>
     <div class="info-wrapper">
         <div class="icon-wrapper">
-            <img :src=icon class="state-icon" alt="signal">
+            <img ref="icon" :src=icon class="state-icon" alt="signal">
         </div>
         <div class="state-info">
             <span class="state-info-text">{{ currentState }}</span>
@@ -72,6 +81,6 @@ export default{
 }
 .state-info-text{
     display: inline;
-    color: var(--day-night-font-color);
+    color: var(--font-color);
 }
 </style>

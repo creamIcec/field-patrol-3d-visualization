@@ -9,7 +9,7 @@ export default{
         StateColumn
     },
     props:{
-        drone_name: ""
+        drone_name: "",
     },
     methods:{
         setDroneName(name){
@@ -19,16 +19,16 @@ export default{
     data(){
         return {
             signalValues,
-            batteryLevels
+            batteryLevels,
         }
     }
 }
 </script>
 <template>
-    <div id="data">
+    <div id="data" class="neumorphism">
         <div id="state-data">
-            <StateColumn icon="./src/components/state-card-assets/signal.svg" :values='signalValues' />
-            <StateColumn icon="./src/components/state-card-assets/battery.svg" :values='batteryLevels' />
+            <StateColumn icon="./src/components/state-card-assets/signal.svg" :values='signalValues' :svgInject='true' />
+            <StateColumn icon="./src/components/state-card-assets/battery.svg" :values='batteryLevels' :svgInject='true' />
         </div>
         <div id="info-data">
             <div style="grid-column: 1; grid-row: 1;">
@@ -36,10 +36,10 @@ export default{
                 <span style="font-size: 16px; color: var(--day-night-font-color);">{{ drone_name }}</span>
             </div>
             <div style="grid-column: 2; grid-row: 1;">
-                <TrackingColumn icon="./src/components/state-card-assets/speed-meter.svg" title="实时速度" />
+                <TrackingColumn icon="./src/components/state-card-assets/speed-meter.svg" title="实时速度" :svgInject='true' />
             </div>
             <div style="grid-column: 1; grid-row: 2;">
-                <TrackingColumn icon="./src/components/state-card-assets/position.svg" title="实时位置" />
+                <TrackingColumn icon="./src/components/state-card-assets/position.svg" title="实时位置" :svgInject='true' />
             </div>
         </div>
     </div> <!--状态数据--->
@@ -56,13 +56,11 @@ export default{
     flex-direction: column;
     padding: 10px;
     row-gap: 10px;
-    background: linear-gradient(135deg, var(--day-card-color-start), var(--day-card-color-end)),
-                linear-gradient(270deg, var(--day-card-color-end) 20%, var(--day-card-color-start) 80%);
+    background: linear-gradient(135deg, var(--card-color-start), var(--card-color-end)),
+                linear-gradient(270deg, var(--card-color-end) 20%, var(--card-color-start) 80%);
     border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.3);
     backdrop-filter: blur(50px);
     -webkit-backdrop-filter: blur(50px);
-    box-shadow: 0px 8px 32px 0px rgba(0,0,0,0.37);
 }
 #state-data{
     display: grid;
