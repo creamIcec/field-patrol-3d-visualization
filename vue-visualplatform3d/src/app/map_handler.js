@@ -69,14 +69,14 @@ class MapHandler{
                 this.wsPointServer.send(collectionNames[1]);
                 //wsImageServer.send("hello");
                 //fetchVehicleName();
-                Experience.initDragBehaviour(webMap.getMap(), document.querySelector("#header"), document.getElementsByClassName("button-wrapper"));
-                isLoaded = true;
+                Experience.initDragBehaviour(this.webMap.getMap(), document.querySelector("#header"), document.getElementsByClassName("button-wrapper"));
+                this.isLoaded = true;
             }
             //points = requestTestPoints();
         }
         
         window.onclose = () => {     //TODO 是否有其他方式断开WebSocket连接? 例如, 用户通过导航回到了主页
-            wsPointServer.close(1000,"用户退出页面。");
+            this.wsPointServer.close(1000,"用户退出页面。");
         }
 
         this.wsPointServer.onopen = () => {
@@ -107,23 +107,23 @@ class MapHandler{
                 if(this.rawPathPoints.length === 0){
                     point = new Point(points[i].longitude, points[i].latitude, points[i].rotation, points[i].time);
                     this.rawPathPoints.push(point);   //1
-                    drawPath(points.flat(1), true, debug, true, "green");
+                    drawPath(points.flat(1), true, this.debug, true, "green");
                 }else if(this.rawPathPoints.length === 1){
                     point = new Point(points[i].longitude, points[i].latitude, points[i].rotation, points[i].time);
-                    const interpolatedPoints = PointHandler.getInterpolatedPoints(this.rawPathPoints[rawPathPoints.length - 1], point);
+                    const interpolatedPoints = PointHandler.getInterpolatedPoints(this.rawPathPoints[this.rawPathPoints.length - 1], point);
                     //console.log(interpolatedPoints);
                     this.rawPathPoints.push(point);
-                    drawPath(interpolatedPoints, true, debug, true, "green");   //2
+                    drawPath(interpolatedPoints, true, this.debug, true, "green");   //2
                 }else{
                     point = new Point(points[i].longitude, points[i].latitude, points[i].rotation, points[i].time);
                     stopInterpolate({normal: true, additional: true});
                     //console.log(rawPathPoints[rawPathPoints.length - 1].toString() + " " + rawPathPoints[rawPathPoints.length - 2].toString());
-                    const interpolatedPoints = PointHandler.getInterpolatedPoints(this.rawPathPoints[rawPathPoints.length - 1], point);
+                    const interpolatedPoints = PointHandler.getInterpolatedPoints(this.rawPathPoints[this.rawPathPoints.length - 1], point);
                     //console.log(interpolatedPoints);
                     this.rawPathPoints.push(point);
-                    drawPath(interpolatedPoints, true, debug, true, "green");
+                    drawPath(interpolatedPoints, true, this.debug, true, "green");
                     for(let j = this.rawPathPoints.length - 2; j > 0; j--){
-                        drawPath([this.rawPathPoints[j-1], this.rawPathPoints[j]], true, debug, false, "green");
+                        drawPath([this.rawPathPoints[j-1], this.rawPathPoints[j]], true, this.debug, false, "green");
                     }//3，4
                 }
         
@@ -153,12 +153,11 @@ class MapHandler{
         const req = new XMLHttpRequest();
         const requestURL = "http://localhost:8081/add_and_get_point?";
         const requestQuery = 'longitude=' + longitude + "&" + 'latitude=' + latitude + "&" + 'rotation=' + rotation + "&" + 'time=' + _time;
-        httpRequest.open("GET", requestURL + requestQuery, true);
-        httpRequest.setRequestHeader('content-type','application/json');
-        httpRequest.send();
+        req.open("GET", requestURL + requestQuery, true);
+        req.setRequestHeader('content-type','application/json');
         //获取数据后的处理
-        httpRequest.onreadystatechange = () => {}
-        req.send()
+        req.onreadystatechange = () => {}
+        req.send();
     }
 
     drawPath = function(points, additional = false, debug = false, updateEntityPosition = true, color = "green"){
@@ -169,18 +168,18 @@ class MapHandler{
             function draw(){
                 if((!counter.interrupted) && counter.count < points.length - 1){
                     const point = new Point(points[counter.count]["longitude"], points[counter.count]["latitude"], points[counter.count]["rotation"], points[counter.count]["time"]);
-                    webMap.addPathPoint(point);
+                    this.webMap.addPathPoint(point);
                     if(updateEntityPosition){
-                        webMap.setEntityPosition(point);
+                        this.webMap.setEntityPosition(point);
                     }
-                    webMap.drawStaticPath({refresh: true, showEntity: true, debug: debug, color: color});
+                    this.webMap.drawStaticPath({refresh: true, showEntity: true, debug: debug, color: color});
                     counter.increase();
                 }else{
                     clearInterval(drawCall);
                     //delete counter;
                 }
             }
-            drawQueueNormal.push(counter);
+            this.drawQueueNormal.push(counter);
         }else{
             let counter = new DrawAtom(0);
             const drawCall = setInterval(drawAdditional, interval);
@@ -189,11 +188,11 @@ class MapHandler{
                     const point1 = new Point(points[counter.count]["longitude"], points[counter.count]["latitude"], points[counter.count]["rotation"], points[counter.count]["time"]);
                     const point2 = new Point(points[counter.count+1]["longitude"], points[counter.count+1]["latitude"], points[counter.count+1]["rotation"], points[counter.count+1]["time"]);
                     if(updateEntityPosition){
-                        webMap.setEntityPosition(point1);
+                        this.webMap.setEntityPosition(point1);
                     }
-                    webMap.additionalDrawStaticPath([point1, point2], {debug: debug, color: color, showEntity: true});
+                    this.webMap.additionalDrawStaticPath([point1, point2], {debug: debug, color: color, showEntity: true});
                     if(updateEntityPosition){
-                        webMap.setEntityPosition(point2);
+                        this.webMap.setEntityPosition(point2);
                     }
                     counter.increase();
                 }else{
@@ -201,12 +200,12 @@ class MapHandler{
                     //delete counter;
                 }
             }
-            drawQueueAdditional.push(counter);
+            this.drawQueueAdditional.push(counter);
         }
     }
 
     updatePositionInfo = function(point){
-        if(!isLoaded){
+        if(!this.isLoaded){
             return;
         }
         const positionInfoContainer = document.querySelector("#position");
@@ -214,7 +213,7 @@ class MapHandler{
     }
 
     updateSpeedInfo = function(){
-        if(!isLoaded){
+        if(!this.isLoaded){
             return;
         }
         const meter = document.querySelector("#speed");
@@ -222,11 +221,11 @@ class MapHandler{
     }
 
     stopInterpolate = function(obj){
-        for(let i = 0 ; i < drawQueueNormal.length; i++){
-            drawQueueNormal[i].setInterrupted();
+        for(let i = 0 ; i < this.drawQueueNormal.length; i++){
+            this.drawQueueNormal[i].setInterrupted();
         }
-        for(let i = 0 ; i < drawQueueAdditional.length; i++){
-            drawQueueAdditional[i].setInterrupted();
+        for(let i = 0 ; i < this.drawQueueAdditional.length; i++){
+            this.drawQueueAdditional[i].setInterrupted();
         }
     }
 
