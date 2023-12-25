@@ -6,8 +6,6 @@ import VideoCard from './components/VideoCard.vue';
 import TrackingCard from './components/TrackingCard.vue';
 import Popup from './components/Popup.vue';
 import Switcher from "./components/Switcher.vue";
-import { ak } from "./AkContainer";
-import { MapHandler } from "./app/map_handler";
 import "./lib/svg-inject";
 function loadExternalScript(src) {
   return new Promise((resolve, reject) => {
@@ -30,8 +28,8 @@ export default {
     Switcher
   },
   beforeMount() {
-    loadExternalScript('https://api.map.baidu.com/api?v=1.0&&type=webgl&ak=' + ak);
-    loadExternalScript('https://api.map.baidu.com/library/TrackAnimation/src/TrackAnimation_min.js');
+    //loadExternalScript('https://api.map.baidu.com/api?v=1.0&&type=webgl&ak=' + ak);
+    //loadExternalScript('https://api.map.baidu.com/library/TrackAnimation/src/TrackAnimation_min.js');
   },
   mounted() {
     const controlPad = this.$refs.controlPad;
@@ -48,7 +46,6 @@ export default {
     return {
       currentTime: '',
       dayNightTheme: 'day',
-      mapHandler: new MapHandler()
     }
   },
   methods: {

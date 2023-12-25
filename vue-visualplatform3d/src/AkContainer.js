@@ -1,2 +1,0 @@
-let ak = '';
-export{ ak };
