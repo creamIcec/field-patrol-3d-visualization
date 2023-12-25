@@ -5,7 +5,8 @@ export default {
         icon: {type: String, required: false},
         pos: {type: String, required: false},
         standAlone:{type: Boolean, required: false, default: false},
-        svgInject:{type: Boolean, required: false, default: true},
+        svgInject: {type: Boolean, required: false, default: true},
+        adjustSize:{type: String, required: false, default: false}
     },
     mounted(){
         if(this.standAlone){
@@ -17,24 +18,29 @@ export default {
             SVGInject(icon);
             icon.classList.add("svg-injected");
         }
+        if(this.adjustSize != undefined){
+            const icon = this.$refs.icon;
+            icon.style.width = this.adjustSize;
+            icon.style.height = this.adjustSize;
+        }
     }
 }
 </script>
 <template>
-    <div ref="wrapper" :class="'buttonWrapper allButtons ' + pos + '-buttons'">
-        <button ref="button" class="control-buttons">
+    <div ref="wrapper" :class="'button-wrapper all-button ' + pos + '-button'">
+        <button ref="button" class="control-button">
             <img ref="icon" :src="icon" :alt="action" class="icon"/>
         </button>
     </div>
 </template>
 <style scoped>
-@media(max-width:580px) {
-    .all-buttons{
+@media( max-width:580px ) {
+    .all-button{
         width: 50px;
         height: 100px;
     }
 
-    .control-buttons {
+    .control-button {
         border: none;
         background-color: transparent;
     }
@@ -45,23 +51,23 @@ export default {
     height: 100%;
 }
 
-.left-buttons{
+.left-button{
     left: 20px;
 }
 
-.top-buttons{
+.top-button{
     top: 20px;
 }
 
-.right-buttons{
+.right-button{
     right: 20px;
 }
 
-.bottom-buttons{
+.bottom-button{
     bottom: 20px;
 }
 
-.buttonWrapper {
+.button-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -69,13 +75,13 @@ export default {
     height: fit-content;
 }
 
-.allButtons {
+.all-button {
     width: 100%;
     height: 100%;
     pointer-events: all;
 }
 
-.control-buttons {
+.control-button {
     border-style: none;
     border-radius: 10px;
     background-color: var(--button-color);
