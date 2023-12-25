@@ -35,7 +35,7 @@ export default {
 }
 </script>
 <template>
-    <div ref="wrapper" class="switcher-wrapper">
+    <div ref="wrapper" class="switcher-wrapper neumorphism">
         <button ref="button1" id="button1"></button>
         <button ref="button2" id="button2"></button>
         <div ref="indicator" id="indicator" class="grid-enabled"></div>
@@ -51,9 +51,9 @@ export default {
 .switcher-wrapper {
     width: 160px;
     height: 70px;
-    border-radius: 20px;
-    box-shadow: inset -10px -10px 10px -1px rgba(255, 255, 255, 0.16),
-        inset 10px 10px 10px -1px rgba(10, 99, 169, 0.16);
+    border-radius: 10px;
+    box-shadow: -3px -3px 3px -1px var(--shadow-start),
+                3px 3px 3px -1px var(--shadow-end);
     display: grid;
     justify-content: center;
     align-items: center;
@@ -73,7 +73,7 @@ button {
 }
 
 #button1 {
-    background: url("./state-card-assets/day_mode.svg");
+    background: url("./state-card-assets/day-mode.svg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 50%;
@@ -81,7 +81,7 @@ button {
 }
 
 #button2 {
-    background: url("./state-card-assets/night_mode.svg");
+    background: url("./state-card-assets/night-mode.svg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 50%;
@@ -119,28 +119,36 @@ button {
 @keyframes toggle-night {
     from {
         background-color: var(--day-controller-color-end);
-        box-shadow: inset -10px -10px 10px -1px rgba(255, 255, 255, 0.16),
-            inset 10px 10px 10px -1px rgba(10, 99, 169, 0.16);
+        box-shadow: -3px -3px 3px -1px var(--shadow-start),
+                    3px 3px 3px -1px var(--shadow-end),
+                    inset 0 0 0 0 #000000,
+                    inset 0 0 0 0 #000000
     }
 
     to {
         background-color: var(--day-controller-color-start);
-        box-shadow: inset 10px 10px 10px -1px rgba(1, 23, 40, 0.25),
-            inset -10px -10px 10px -1px rgba(199, 199, 199, 0.25);
+        box-shadow: 0 0 0 0 #000000,
+                    0 0 0 0 #000000,
+                    inset 10px 10px 10px -1px rgba(1, 23, 40, 0.25),
+                    inset -10px -10px 10px -1px rgba(199, 199, 199, 0.25);
     }
 }
 
 @keyframes toggle-day {
     from {
         background-color: var(--day-controller-color-start);
-        box-shadow: inset 10px 10px 10px -1px rgba(1, 23, 40, 0.25),
-            inset -10px -10px 10px -1px rgba(199, 199, 199, 0.25);
+        box-shadow: 0 0 0 0 #000000,
+                    0 0 0 0 #000000,
+                    inset 10px 10px 10px -1px rgba(1, 23, 40, 0.25),
+                    inset -10px -10px 10px -1px rgba(199, 199, 199, 0.25);
     }
 
     to {
         background-color: var(--day-controller-color-end);
-        box-shadow: inset -10px -10px 10px -1px rgba(255, 255, 255, 0.16),
-            inset 10px 10px 10px -1px rgba(10, 99, 169, 0.16);
+        box-shadow: -3px -3px 3px -1px var(--shadow-start),
+                    3px 3px 3px -1px var(--shadow-end),
+                    inset 0 0 0 0 #000000,
+                    inset 0 0 0 0 #000000
     }
 }
 
@@ -148,7 +156,7 @@ button {
     from {
         background: linear-gradient(180deg, rgb(56, 125, 252) 0%, rgb(56, 169, 255) 60%);
         box-shadow: inset -10px -10px 10px -1px rgb(32, 117, 183),
-            inset 10px 10px 10px -1px rgb(31, 83, 181);
+                    inset 10px 10px 10px -1px rgb(31, 83, 181);
         left: 50%;
     }
 

@@ -25,7 +25,8 @@ export default {
     TrackingCard,
     Popup,
     ControlPad,
-    Switcher
+    Switcher,
+    NotificationCard
   },
   beforeMount() {
     //loadExternalScript('https://api.map.baidu.com/api?v=1.0&&type=webgl&ak=' + ak);
@@ -75,7 +76,10 @@ export default {
         <ControlPad ref="controlPad" id="control-pad" type="vertical" icon1="src/resources/drone.svg"
             icon2="src/resources/car.svg" alt1="无人机" alt2="小车" :svgInject="true"></ControlPad>
       </div>
-      <VideoCard /> <!--即时视频区域--->
+      <NotificationCard class="notification-card" id="notification-card-test-1" category="warn" content="在您不在线的时候，我们检测到了3处可疑裂痕" instruct="点击此对话框查看详情" />  <!--TODO: unique id-->
+      <NotificationCard class="notification-card" id="notification-card-test-2" category="alert" content="无法连接到巡检设备" instruct="点击此对话框查看详情" />  <!--TODO: unique id-->
+      <NotificationCard class="notification-card" id="notification-card-test-3" category="info" content="已计划定时重启, 下次重启在2023-12-10 23:59:59" instruct="点击此对话框查看详情" />  <!--TODO: unique id-->
+      <!--<VideoCard id="video-card"/>--> <!--即时视频区域--->
       <TrackingCard /> <!--TODO: vue的自定义元素内容方法-->
       <Popup /> <!--展开菜单--> <!--TODO: vue的显示/隐藏元素的操作方法-->
     </div>
@@ -84,6 +88,30 @@ export default {
 </template>
 <link rel="stylesheet" href="@/resources/main.css"/>
 <style scoped>
+.notification-card{
+  position: absolute;
+  right: var(--right-area-pos);
+  
+  width: 300px;
+  height: 85px;
+  cursor: pointer;
+  pointer-events: all;
+}
+
+#notification-card-test-1{
+  top: 10px;
+}
+
+#notification-card-test-2{
+  top: calc(10px + 85px);
+  margin-top: 10px;
+}
+
+#notification-card-test-3{
+  top: calc(10px + 85px + 10px + 85px);
+  margin-top: 10px;
+}
+
 #navigator {
   grid-row: 1;
 }
@@ -97,7 +125,7 @@ export default {
 }
 
 #timeline-control {
-  grid-row: 6;
+  grid-row: 7;
 }
 
 #content {
@@ -142,7 +170,7 @@ export default {
   width: calc(var(--left-area-button-size) - 2 * var(--left-area-padding));
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: repeat(8, calc(var(--left-area-button-size) - 2 * var(--left-area-padding))) calc(100% - 700px);
+  grid-template-rows: repeat(6, calc(var(--left-area-button-size) - 2 * var(--left-area-padding))) calc(100% - 700px);
   row-gap: 5%;
 }
 
@@ -150,6 +178,15 @@ export default {
   position: absolute;
   bottom: -200px;
   left: 1px;
+}
+
+#video-card{
+  position: absolute;
+  right: var(--right-area-pos);
+  top: 105px;
+  margin-top: 10px;
+  width: 300px;
+  height: 300px;
 }
 </style>
 <style>
@@ -166,10 +203,15 @@ export default {
   --night-controller-color-start: #2c2f3480;
   --night-controller-color-end: #2c2f3480;
   --night-button-color: #ffffff00;
-  --night-shadow-start: #cacccd30;
-  --night-shadow-end: #06070930;
+  --night-shadow-start: #cacccdA0;
+  --night-shadow-end: #06070970;
   --night-button-icon-color: #A7B8C4;
   --night-font-color: #ffffff;
+  --night-tip-font-color: #fffccc;
+  --night-warn-card-color: #E6A622;
+  --night-alert-card-color: #E64F24;
+  --night-info-card-color: #2591F0;
+  
   /*Day mode color definition */
   --day-header-color-start: #EBEBF2; /*#FFF3DA90;*/
   --day-header-color-end: #DFF7F2; /*#fddcb690;*/
@@ -178,13 +220,23 @@ export default {
   --day-controller-color-start: #ECF0F380; /*#bdaaf060;*/
   --day-controller-color-end: #ECF0F380; /*#ab9aeb60;*/
   --day-button-color: #ffffff00; /*#ccb6ecaa;*/
-  --day-shadow-start: #FFFFFFAA;/*#ecbcf1ee;*/
-  --day-shadow-end: #758EA1AA; /*#bb6ec0ee;*/
+  --day-shadow-start: #FFFFFFA0;/*#ecbcf1ee;*/
+  --day-shadow-end: #758EA180; /*#bb6ec0ee;*/
   --day-button-icon-color: #263540;
-  --day-font-color: #000000;
+  --day-font-color: #383531;
+  --day-tip-font-color: #89837A;
+  --day-warn-card-color: #E6D623;
+  --day-alert-card-color: #EB6043;
+  --day-info-card-color: #2FBDEB;
+  
 
   --left-area-button-size: 70px;
   --left-area-padding: 10px;
+
+  --header-top-pos: 25px;
+  --right-area-pos: 20px;
+
+  --top-button-size: 54px;
 }
 
 :root[theme='day']{
@@ -198,7 +250,11 @@ export default {
   --shadow-start: var(--day-shadow-start);
   --shadow-end: var(--day-shadow-end);
   --font-color: var(--day-font-color);
+  --tip-font-color: var(--day-tip-font-color);
   --button-icon-color: var(--day-button-icon-color);
+  --warn-card-color: var(--day-warn-card-color);
+  --alert-card-color: var(--day-alert-card-color);
+  --info-card-color: var(--day-info-card-color);
 }
 
 :root[theme='night']{
@@ -212,7 +268,11 @@ export default {
   --shadow-start: var(--night-shadow-start);
   --shadow-end: var(--night-shadow-end);
   --font-color: var(--night-font-color);
+  --tip-font-color: var(--night-tip-font-color);
   --button-icon-color: var(--night-button-icon-color);
+  --warn-card-color: var(--night-warn-card-color);
+  --alert-card-color: var(--night-alert-card-color);
+  --info-card-color: var(--night-info-card-color);
 }
 
 *{

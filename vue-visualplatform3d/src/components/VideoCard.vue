@@ -6,17 +6,12 @@ export default{
 }
 </script>
 <template>
-    <div id="video-display" class="neumorphism day-theme">
+    <div class="video-display-card neumorphism day-theme">
         <img id="img-holder" src="" width="300" height="300" alt="detected image">
     </div>
 </template>
-<style>
-#video-display {
-    width: 300px;
-    height: 300px;
-    position: absolute;
-    right: 20px;
-    top: 20px;
+<style scoped>
+.video-display-card {
     border-radius: 14px;
     overflow: hidden;
 
