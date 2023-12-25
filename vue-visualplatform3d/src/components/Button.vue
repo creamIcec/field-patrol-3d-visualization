@@ -8,6 +8,11 @@ export default {
         svgInject: {type: Boolean, required: false, default: true},
         adjustSize:{type: String, required: false, default: false}
     },
+    beforeCreate(){
+        if(this.adjustSize == undefined){
+            this.adjustSize = "100%";
+        }
+    },
     mounted(){
         if(this.standAlone){
             const wrapper = this.$refs.wrapper;

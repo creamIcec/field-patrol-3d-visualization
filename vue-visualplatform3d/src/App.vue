@@ -6,7 +6,9 @@ import VideoCard from './components/VideoCard.vue';
 import TrackingCard from './components/TrackingCard.vue';
 import Popup from './components/Popup.vue';
 import Switcher from "./components/Switcher.vue";
+import NotificationCard from './components/NotificationCard.vue';
 import "./lib/svg-inject";
+import { WidgetThemeManager } from "./app/widgetThemeManager";
 function loadExternalScript(src) {
   return new Promise((resolve, reject) => {
     window.onLoaded = resolve;
@@ -41,12 +43,12 @@ export default {
     document.documentElement.setAttribute("theme", "day");
     const header = this.$refs.header;
     header.theme = 'day';
-    this.mapHandler.init();
   },
   data() {
     return {
       currentTime: '',
       dayNightTheme: 'day',
+      widgetThemeManager: new WidgetThemeManager()
     }
   },
   methods: {
@@ -60,7 +62,7 @@ export default {
 </script>
 
 <template>
-  <Header ref="header" :mapHandler="this.mapHandler" :mainContent="this.currentTime" subContent="天气" />
+  <Header ref="header" :widgetThemeManager="this.widgetThemeManager" :mainContent="this.currentTime" subContent="室内温度 室内湿度" />
   <div id="content">
     <div id="map-content"></div> <!--地图内容--->
     <div id="widget-content"> <!--非地图内容-->
@@ -76,9 +78,9 @@ export default {
         <ControlPad ref="controlPad" id="control-pad" type="vertical" icon1="src/resources/drone.svg"
             icon2="src/resources/car.svg" alt1="无人机" alt2="小车" :svgInject="true"></ControlPad>
       </div>
-      <NotificationCard class="notification-card" id="notification-card-test-1" category="warn" content="在您不在线的时候，我们检测到了3处可疑裂痕" instruct="点击此对话框查看详情" />  <!--TODO: unique id-->
-      <NotificationCard class="notification-card" id="notification-card-test-2" category="alert" content="无法连接到巡检设备" instruct="点击此对话框查看详情" />  <!--TODO: unique id-->
-      <NotificationCard class="notification-card" id="notification-card-test-3" category="info" content="已计划定时重启, 下次重启在2023-12-10 23:59:59" instruct="点击此对话框查看详情" />  <!--TODO: unique id-->
+      <NotificationCard class="notification-card" id="notification-card-test-1" category="warn" content="在您不在线的时候，我们检测到了2处可疑高温" instruct="点击此对话框查看详情" />  <!--TODO: unique id-->
+      <NotificationCard class="notification-card" id="notification-card-test-2" category="alert" content="无法连接到监控设备:设备号001" instruct="点击此对话框查看详情" />  <!--TODO: unique id-->
+      <NotificationCard class="notification-card" id="notification-card-test-3" category="info" content="已计划定时重启, 下次重启在2023-12-26 23:59:59" instruct="点击此对话框查看详情" />  <!--TODO: unique id-->
       <!--<VideoCard id="video-card"/>--> <!--即时视频区域--->
       <TrackingCard /> <!--TODO: vue的自定义元素内容方法-->
       <Popup /> <!--展开菜单--> <!--TODO: vue的显示/隐藏元素的操作方法-->
@@ -195,6 +197,7 @@ export default {
 }
 
 :root {
+  --night-bkg-color: #04353f;
   /*Night mode color definition */
   --night-header-color-start: #04353f;
   --night-header-color-end: #081552;
@@ -213,6 +216,7 @@ export default {
   --night-info-card-color: #2591F0;
   
   /*Day mode color definition */
+  --day-bkg-color: #EBEBF2;
   --day-header-color-start: #EBEBF2; /*#FFF3DA90;*/
   --day-header-color-end: #DFF7F2; /*#fddcb690;*/
   --day-card-color-start: #EBEBF2;
@@ -226,7 +230,7 @@ export default {
   --day-font-color: #383531;
   --day-tip-font-color: #89837A;
   --day-warn-card-color: #E6D623;
-  --day-alert-card-color: #EB6043;
+  --day-alert-card-color: #d25239;
   --day-info-card-color: #2FBDEB;
   
 
@@ -240,6 +244,7 @@ export default {
 }
 
 :root[theme='day']{
+  --bkg-color: var(--day-bkg-color);
   --header-color-start: var(--day-header-color-start);
   --header-color-end: var(--day-header-color-end);
   --card-color-start: var(--day-card-color-start);
@@ -258,6 +263,7 @@ export default {
 }
 
 :root[theme='night']{
+  --bkg-color: var(--night-bkg-color);
   --header-color-start: var(--night-header-color-start);
   --header-color-end: var(--night-header-color-end);
   --card-color-start: var(--night-card-color-start);
@@ -283,6 +289,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bkg-color);
 }
 
 .neumorphism{

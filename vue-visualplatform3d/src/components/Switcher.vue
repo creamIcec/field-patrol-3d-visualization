@@ -1,9 +1,8 @@
 <script>
-import { MapHandler } from '../app/map_handler';
-
+import { WidgetThemeManager } from "../app/widgetThemeManager";
 export default {
     props:{
-        mapHandler: {type: MapHandler, required: true}
+        widgetThemeManager: {type: WidgetThemeManager, required: true}
     },
     methods: {
         toggle() {
@@ -18,7 +17,7 @@ export default {
                 wrapper.classList.add("wrapper-animating2night");
 
                 document.documentElement.setAttribute("theme", "night");
-                this.mapHandler.switchDayNight("night");
+                this.widgetThemeManager.switchTheme("night");
 
             }
             button1.onclick = () => {
@@ -28,7 +27,7 @@ export default {
                 wrapper.classList.add("wrapper-animating2day");
 
                 document.documentElement.setAttribute("theme", "day");
-                this.mapHandler.switchDayNight("day");
+                this.widgetThemeManager.switchTheme("day");
             }
         }
     }

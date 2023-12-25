@@ -24,12 +24,12 @@ export default{
 <template>
      <div class="info-title-wrapper">
         <span style="font-size: 20px; color: #4477CE; font-weight: 600; display: block;">{{ title }}</span>
-        <img ref="icon" :src=icon id="speed-meter-icon" class="info-helper-icon" alt="speed">
+        <img ref="icon" :src=icon id="speed-meter-icon" class="info-icon" alt="speed">
     </div>
     <span style="font-size: 16px; color: black; display: inline-block;" id="speed">{{ data }}</span>
 </template>
 <style scoped>
-.info-helper-icon{
+.info-icon{
     width: 32px;
     height: 32px;
     grid-row: 1;

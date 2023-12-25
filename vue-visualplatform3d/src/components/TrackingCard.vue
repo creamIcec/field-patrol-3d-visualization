@@ -1,7 +1,7 @@
 <script>
 import TrackingColumn from './TrackingColumn.vue';
 import StateColumn from './StateColumn.vue';
-const signalValues = ['信号强', '信号一般', '信号弱'];
+const signalValues = ['在线', '离线'];
 const batteryLevels = ['100%','90%','80%','70%','60%','50%','40%','30%','20%','10%','0%'];
 export default{
     components:{
@@ -27,7 +27,7 @@ export default{
 <template>
     <div id="data" class="neumorphism">
         <div id="state-data">
-            <StateColumn icon="./src/components/state-card-assets/signal.svg" :values='signalValues' :svgInject='true' />
+            <StateColumn icon="./src/components/state-card-assets/plugin.svg" :values='signalValues' :svgInject='true' />
             <StateColumn icon="./src/components/state-card-assets/battery.svg" :values='batteryLevels' :svgInject='true' />
         </div>
         <div id="info-data">
@@ -36,10 +36,10 @@ export default{
                 <span style="font-size: 16px; color: var(--day-night-font-color);">{{ drone_name }}</span>
             </div>
             <div style="grid-column: 2; grid-row: 1;">
-                <TrackingColumn icon="./src/components/state-card-assets/speed-meter.svg" title="实时速度" :svgInject='true' />
+                <TrackingColumn icon="./src/components/state-card-assets/temperature.svg" title="实时温度" :svgInject='true' />
             </div>
             <div style="grid-column: 1; grid-row: 2;">
-                <TrackingColumn icon="./src/components/state-card-assets/position.svg" title="实时位置" :svgInject='true' />
+                <TrackingColumn icon="./src/components/state-card-assets/brightness.svg" title="实时亮度" :svgInject='true' />
             </div>
         </div>
     </div> <!--状态数据--->

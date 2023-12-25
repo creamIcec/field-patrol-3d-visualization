@@ -1,12 +1,12 @@
 <script>
-import { MapHandler } from '../app/map_handler';
 import Button from './Button.vue';
 import Switcher from './Switcher.vue';
+import { WidgetThemeManager } from '../app/widgetThemeManager';
 export default{
     props:{
         mainContent: {type: String, required: false},
         subContent: {type: String, required: false},
-        mapHandler: {type: MapHandler, required: true},
+        widgetThemeManager: {type: WidgetThemeManager, required: true},
     },
     mounted(){
         const themeSwitch = this.$refs.themeSwitch;
@@ -28,9 +28,9 @@ export default{
     <div>
         <div ref="titleWrapper" id="title-wrapper" class="title-wrapper">
             <h2 ref="mainContent" id="main-content" class="title">{{ mainContent }}</h2>
-            <h2 ref="subContent" id="sub-content" class="title">{{ subContent }}</h2>
+            <h3 ref="subContent" id="sub-content" class="title">{{ subContent }}</h3>
         </div>
-        <Switcher ref="themeSwitch" id="mode-switch" :mapHandler="this.mapHandler"></Switcher>
+        <Switcher ref="themeSwitch" id="mode-switch" :widgetThemeManager="this.widgetThemeManager"></Switcher>
         <Button class="top-button" id="user" pos="top" action="user" icon="src/resources/user.svg" :standAlone=true adjustSize="80%"></Button>
         <Button class="top-button" id="notification" pos="top" action="notification" icon="src/resources/notification.svg" :standAlone="true" @click="displayPopup()"></Button>
     </div>
